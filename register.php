@@ -38,7 +38,87 @@ function findDuplicates($str, $what) {
 
 
 
-#under this comment we will check if the session is NOT set, which means that the user is not logged in and can register. 
+#under this comment we will check if the session is NOT set, which means that the user is not logged in and can register.  the exclamation mark: '!' turns isset into the opposite. 
+
+#also we will be getting the user submitted data in the form of a POST request and storing it in the respectable variables. we'll set the vars to empty strings if the var is not set, the input is left blank by the user
+
+if(!isset($_SESSION['email'])){
+    
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $name = isset($_POST['name']) ? $_POST['name'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
+    $passwordAgain = isset($_POST['passwordAgain']) ? $_POST['passwordAgain'] : '';
+    
+    
+    #htmlspecialchars Convert special characters to HTML entities which will help in preventing xss attacks - cross site scripting attacks.
+    #XSS enables attackers to inject client-side scripts into webpages viewed by other users. a cross-site scirpting vulnerability may be used by attackers to bypass acces controls such as the same-origin-policy. the effect may range from a petty nuisance to a significant security risk.
+    
+    $username = htmlspecialchars($username);
+    $name = htmlspecialchars($name);
+    $email = htmlspecialchars($email);
+    $password = htmlspecialchars($password);
+    $passwordAgain = htmlspecialchars($passwordAgain);
+    
+    
+    $error_username=false;
+    $error_email=false;
+    $error_password=false;
+    
+    #under this comment we will set bools to true if the error exists 
+    
+    
+    #the first if statement will check if the submit button is pressed
+    
+    if(isset($_POST['submit'])){
+    
+        
+    #in the second if statement ill check if all the variables are set ie the user has filled in all the information
+    
+    if (!empty($username) && !empty ($name) && !empty ($email) && !empty ($password)&& !empty ($passwordAgain)){
+        
+        
+        
+           #in the third if statement ill check if password equals passwordAgain if that is the case then error_password is set to false. if it is not the case the boolean will be set to true and an error will occur. this error message will be printed out, ill create it later.
+        
+        
+        if($password==$passwordAgain){
+            
+            $error_password=false;
+            
+            
+            }else{
+            $error_password = true;
+            
+            }
+        
+        
+            #the forth and fifth if block checks if the username and email do not already exist, if the username and/or email aldready exist, then the error_username and/or error_email are set to true.
+        
+        #so if find duplicates $email is not equal to email in the database so to say it will make the error false. and no error will occur.
+        
+        
+        
+        
+        
+     
+        
+        
+        
+    
+        
+        
+        }
+        
+        
+        
+    }
+    
+    
+
+    
+    
+}
 
 
 
