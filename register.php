@@ -12,6 +12,32 @@ session_start();
 
 
 
+#under this comment ill create a function called findDuplicates to make sure there are no duplicate accounts possible in the database. 
+//either returns true or false. if a the result is higher than 0 which makes 1 in boolean it will return true. otherwise it will return false.
+function findDuplicates($str, $what) {
+    global $conn;
+    $sql = "SELECT '$what' FROM 'users' WHERE  '$what' = '$str';";
+    $result = mysqli_query($conn, $sql);
+    if (mysqli_num_rows($result)>0){
+        
+        return true;
+        
+    }else{
+        
+        return false;
+    }
+   
+    
+    
+    
+    
+}
+
+
+
+
+
+
 #under this comment we will check if the session is NOT set, which means that the user is not logged in and can register. 
 
 
