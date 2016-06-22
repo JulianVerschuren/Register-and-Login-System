@@ -31,7 +31,7 @@ $error=false;
         
     #the next sql statement selects the email from users where the user entered the email and the password matches
         
-    $sql = "SELECT `email` FROM `users` WHERE `email` = '$email' AND 'password' = '$password';";  
+    $sql = "SELECT `email` FROM `users` WHERE `email` = '$email' AND `password` = '$password'; ";
         
         #mysqli_num_rows will return 1 in boolean if user entered data correct if not true the error is set to true
     $result = mysqli_query($conn, $sql);
@@ -39,7 +39,7 @@ $error=false;
         $error = false;
         
         
-    }else
+    }else{
         $error = true;
         
     }
@@ -53,12 +53,12 @@ $error=false;
         #if there is no error echo logged in and change location to welcome.php
         
      if(!$error){
-         $_session['email']=$email;
+         $_SESSION['email']=$email;
          echo "logged in!";
-         header("location: welcome.php");
+         header("Location: welcome.php");
      }
              #else fill in all the details
-        else{
+    }else{
             
             echo "fill in all the details.";
             
@@ -70,12 +70,12 @@ $error=false;
         
         
   }
-        
+      #form underneath will not show if one is already logged in  
 ?>
 
-<b><?php if(isset($_SESSION['email'])){echo 'you are already logged in.';} else{echo'log in'; ?></b>
-<br
-<br
+<b><?php if(isset($_SESSION['email'])){echo 'you are already logged in.';} else{echo 'log in:'; ?></b>
+<br>
+<br>
 
 <form action="login.php" method="post">
 Email adress:
@@ -100,7 +100,8 @@ Password:
 
 
 </form>
-<?php }?>
+
+<?php } ?>
     
     
     
