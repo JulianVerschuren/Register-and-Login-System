@@ -96,11 +96,58 @@ if(!isset($_SESSION['email'])){
             #the forth and fifth if block checks if the username and email do not already exist, if the username and/or email aldready exist, then the error_username and/or error_email are set to true.
         
         #so if find duplicates $email is not equal to email in the database so to say it will make the error false. and no error will occur.
+         if(!findDuplicates($email, 'email')){
+            
+            $error_email=false;
+            
+            
+        } else{
+            $error_email=true;
+        }
+        
+        if(!findDuplicates($username, 'username')){
+            
+            $error_username=false;
+            
+            
+        } else{
+            $error_username=true;
+        }
+        
+        #the default value of error_username,password and email were set to false somewhere above. if the blocks of code above this comment change the value from false to true then in the next blocks of code underneath this comment it will print a string giving an eror message
         
         
+        if($error_username){
+            
+            echo"error in username";
+            
+        }
         
         
+        if($error_email){
+            
+            echo"error in username";
+            
+        }
         
+        
+        if($error_password){
+            
+            echo"error in username";
+            
+        }
+        
+        #underneath this comment we'll check if error username, mail and password are false. which means everything has been filled in and no errors will occur, if this is the case, we will insert our variables values from the form in to our database. and connect with it. if everything goes in order it will echo succes.
+        
+        if(!$error_username && !$error_email && !$error_password){
+            $sql = "INSERT INTO 'users' ('username', 'name','email','password') VALUES ('$username', '$name', '$email', '$password');";
+            mysqli_query($conn, $sql);
+            echo "succes!";
+            
+        } else{
+            
+            echo "fill in all the details";
+        }
      
         
         
@@ -121,5 +168,35 @@ if(!isset($_SESSION['email'])){
 }
 
 
-
+#in the next php script we'll create a register form that will be hidden if the user is already logged in
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
