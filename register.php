@@ -14,18 +14,16 @@ session_start();
 
 #under this comment ill create a function called findDuplicates to make sure there are no duplicate accounts possible in the database. 
 //either returns true or false. if a the result is higher than 0 which makes 1 in boolean it will return true. otherwise it will return false.
-function findDuplicates($str, $what) {
-    global $conn;
-    $sql = "SELECT '$what' FROM 'users' WHERE  '$what' = '$str';";
-    $result = mysqli_query($conn, $sql);
-    if (mysqli_num_rows($result)>0){
-        
-        return true;
-        
-    }else{
-        
-        return false;
-    }
+function findDuplicates($str, $what){//returns true if duplicate/s is found  
+global $conn;  
+$sql = "SELECT `$what` FROM `users` WHERE `$what` = '$str';";  
+$result = mysqli_query($conn, $sql);  
+if(mysqli_num_rows($result)>0){  
+return true;  
+}else{  
+return false;  
+}  
+
    
     
     
@@ -75,7 +73,7 @@ if(!isset($_SESSION['email'])){
         
     #in the second if statement ill check if all the variables are set ie the user has filled in all the information
     
-    if (!empty($username) && !empty ($name) && !empty ($email) && !empty ($password)&& !empty ($passwordAgain)){
+    if (!empty($username) && !empty($name) && !empty($email) && !empty($password)&& !empty($passwordAgain)){
         
         
         
@@ -126,28 +124,29 @@ if(!isset($_SESSION['email'])){
         
         if($error_email){
             
-            echo"error in username";
+            echo"error in mail";
             
         }
         
         
         if($error_password){
             
-            echo"error in username";
+            echo"error in password";
             
         }
         
         #underneath this comment we'll check if error username, mail and password are false. which means everything has been filled in and no errors will occur, if this is the case, we will insert our variables values from the form in to our database. and connect with it. if everything goes in order it will echo succes.
         
-        if(!$error_username && !$error_email && !$error_password){
-            $sql = "INSERT INTO 'users' ('username', 'name','email','password') VALUES ('$username', '$name', '$email', '$password');";
-            mysqli_query($conn, $sql);
-            echo "succes!";
-            
-        } else{
-            
-            echo "fill in all the details";
-        }
+if(!$error_username && !$error_email && !$error_password){ 
+$sql = "INSERT INTO `users` (`username`, `name`, `email`, `password`) VALUES ('$username', '$name', '$email', '$password');"; 
+mysqli_query($conn, $sql); 
+echo "Success."; 
+} 
+
+}else{ 
+			echo "Fill in all the details."; 
+		} 
+
      
         
         
@@ -159,44 +158,51 @@ if(!isset($_SESSION['email'])){
         
         
         
-    }
+    
     
     
 
     
     
-}
+
 
 
 #in the next php script we'll create a register form that will be hidden if the user is already logged in
 ?>
 
 
+    <? php if (!isset($_SESSION['email'])){?>
+
+        <b>Register</b>
+        <br>
+        <br>
+
+        <form action="register.php" method="post">
+            Username:
+            <br>
+            <input type="text" name="username" maxlength="128">
+            <br>
+            <br> Name:
+            <br>
+            <input type="text" name="name" maxlength="128">
+            <br>
+            <br> Email adress:
+            <br>
+            <input type="text" name="email" maxlength="128">
+            <br>
+            <br> Password:
+            <br>
+            <input type="text" name="password" maxlength="128">
+            <br>
+            <br> Pasword again:
+            <br>
+            <input type="text" name="passwordAgain" maxlength="128">
+            <br>
+            <br>
+
+            <input type="submit" name="submit" value="Submit">
 
 
+        </form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-}
-
-
-
-
-
-
-
-
+        <?php }else{echo "you are already logged in.";}?>
